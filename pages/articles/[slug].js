@@ -1,3 +1,5 @@
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+
 let client = require('contentful').createClient({
     space: process.env.NEXT_CONTENTFUL_SPACE_ID,
     accessToken: process.env.NEXT_CONTENTFUL_ACCES_TOKEN,
@@ -36,5 +38,8 @@ export async function getStaticProps({ params }) {
 
 export default function Article({ article }) {
     console.log(article);
-    return <div>{article.fields.title}</div>;
+    return <div>
+        <h1>{article.fields.title}</h1>
+        <div>{documentToReactComponents(article.fields.content)}</div>
+    </div>;
 }
